@@ -14,6 +14,9 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset("stisla/assets/css/style.css") }}">
   <link rel="stylesheet" href="{{ asset("stisla/assets/css/components.css") }}">
+
+  {{-- datatable --}}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 </head>
 
 <body>
@@ -25,13 +28,7 @@
 
       <!-- Main Content -->
       @yield('content')
-      <div class="main-content">
-        <div class="section">
-          <div class="section-header">
-            <h5>Hello Sweetie!!!</h5>
-          </div>
-        </div>
-      </div>
+      
       @include('backend.master.footer')
     </div>
   </div>
@@ -44,11 +41,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{asset("stisla/assets/js/stisla.js")}}"></script>
 
+  {{-- datatable --}}
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></script>
   <!-- JS Libraies -->
 
   <!-- Template JS File -->
   <script src="{{ asset("stisla/assets/js/scripts.js") }}"></script>
   <script src="{{ asset("stisla/assets/js/custom.js") }}"></script>
+
+  {{-- datatable --}}
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+  @stack('scripts')
 
   <!-- Page Specific JS File -->
 </body>

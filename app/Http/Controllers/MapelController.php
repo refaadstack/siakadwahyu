@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangIn;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 
-class BarangInController extends Controller
+class MapelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BarangInController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BarangIn  $barangIn
+     * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function show(BarangIn $barangIn)
+    public function show(Mapel $mapel)
     {
         //
     }
@@ -52,10 +52,10 @@ class BarangInController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BarangIn  $barangIn
+     * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function edit(BarangIn $barangIn)
+    public function edit(Mapel $mapel)
     {
         //
     }
@@ -64,10 +64,10 @@ class BarangInController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BarangIn  $barangIn
+     * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangIn $barangIn)
+    public function update(Request $request, Mapel $mapel)
     {
         //
     }
@@ -75,10 +75,10 @@ class BarangInController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BarangIn  $barangIn
+     * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BarangIn $barangIn)
+    public function destroy(Mapel $mapel)
     {
         //
     }

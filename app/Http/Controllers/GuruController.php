@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangOut;
+use App\Models\Guru;
 use Illuminate\Http\Request;
+use DataTables;
 
-class BarangOutController extends Controller
+class GuruController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function json(){
+        return Datatables::of(Guru::all())
+        ->addColumn('action',function($item){
+            return '
+            <a href="'. route('guru.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+            ';
+        })
+        ->make(true);
+    }
     public function index()
     {
-        //
+        return view('backend.guru.index');
     }
 
     /**
@@ -41,10 +52,10 @@ class BarangOutController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BarangOut  $barangOut
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function show(BarangOut $barangOut)
+    public function show(Guru $guru)
     {
         //
     }
@@ -52,10 +63,10 @@ class BarangOutController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BarangOut  $barangOut
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function edit(BarangOut $barangOut)
+    public function edit(Guru $guru)
     {
         //
     }
@@ -64,10 +75,10 @@ class BarangOutController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BarangOut  $barangOut
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangOut $barangOut)
+    public function update(Request $request, Guru $guru)
     {
         //
     }
@@ -75,10 +86,10 @@ class BarangOutController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BarangOut  $barangOut
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BarangOut $barangOut)
+    public function destroy(Guru $guru)
     {
         //
     }

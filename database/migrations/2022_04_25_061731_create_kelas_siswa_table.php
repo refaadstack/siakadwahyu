@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangOutsTable extends Migration
+class CreateKelasSiswaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateBarangOutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang_outs', function (Blueprint $table) {
+        Schema::create('kelas_siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pembeli');
-            $table->dateTime('tanggal_keluar');
-            $table->integer('jumlah');
-            $table->string('status');
+            $table->integer('kelas_id')->unsigned();
+            $table->integer('siswa_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateBarangOutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang_outs');
+        Schema::dropIfExists('kelas_siswa');
     }
 }
