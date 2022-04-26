@@ -20,9 +20,13 @@ Route::get('/', function () {
 
 Route::get('guru',[GuruController::class, 'index'])->name('guru.index');
 Route::get('guru/json',[GuruController::class,'json']);
-Route::get('guru/create',[GuruController::class,'create']);
-Route::post('guru/store',[GuruController::class,'store']);
+Route::get('guru/create',[GuruController::class,'create'])->name('guru.create');
+Route::post('guru/store',[GuruController::class,'store'])->name('guru.store');
 Route::get('guru/{id}/edit',[GuruController::class,'edit'])->name('guru.edit');
+Route::put('guru/{id}/update',[GuruController::class,'update'])->name('guru.update');
+Route::get('guru/{id}/show',[GuruController::class,'show'])->name('guru.show');
+Route::delete('guru/{id}/delete',[GuruController::class,'destroy'])->name('guru.destroy');
+
 
 
 // Route::get('/dashboard', function () {
