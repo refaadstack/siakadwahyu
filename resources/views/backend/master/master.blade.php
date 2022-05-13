@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="{{ asset("stisla/assets/css/style.css") }}">
   <link rel="stylesheet" href="{{ asset("stisla/assets/css/components.css") }}">
 
+  {{-- csrf --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   {{-- datatable --}}
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 </head>
@@ -53,8 +55,11 @@
   {{-- datatable --}}
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+  {{-- sweetalert --}}
+  <script src="{{ asset('stisla/assets/js/page/sweetalert.min.js') }}"></script>
+
   @stack('scripts')
 
-  <!-- Page Specific JS File -->
 </body>
 </html>

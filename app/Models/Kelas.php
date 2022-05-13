@@ -10,14 +10,16 @@ class Kelas extends Model
     use HasFactory;
     
 
-    protected $guarded = [
-        'nama_kelas',
-        'guru_id',
-    ];
+    protected $guarded = [];
 
     public function guru()
     {
         return $this->belongsTo(Guru::class);
+    }
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
     }
     
 }

@@ -4,9 +4,9 @@
 <div class="main-content">
     <div class="section">
       <div class="section-header">
-        <h5>Guru</h5>
+        <h5>Semester</h5>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="#">Guru</a></div>
+            <div class="breadcrumb-item active"><a href="#">Semester</a></div>
             <div class="breadcrumb-item"><a href="#">index</a></div>
         </div>
     </div>
@@ -28,19 +28,13 @@
             <div class="card-header">
                 <div class="card-body p-0">   
                     <div class="table-responsive">
-                        <a href="{{ route('guru.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
-                        <table id="guru-table" class="table table-striped table-bordered bg-white" style="width:100%">
+                        <a href="{{ route('semester.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        <table id="semester-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>no</th>
-                                    <th>Nama</th>
-                                    <th>Foto</th>
-                                    <th>NIP</th>
-                                    <th>NIK</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Jenjang</th>
-                                    <th>Jurusan</th>
-                                    <th>No Telp</th>
+                                    <th>Nama Semester</th>
+                                    <th>Tahun Ajaran</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -62,20 +56,14 @@
 
 <script>
     $(function() {
-        $('#guru-table').DataTable({
+        $('#semester-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: 'guru/json',
+            ajax: 'semester/json',
             columns: [
                 { data:'DT_RowIndex', name:'DT_RowIndex', width:'5%'},
-                { data: 'nama', name: 'nama' },
-                { data: 'foto_guru', name:'foto_guru'},
-                { data: 'nip', name: 'nip' },
-                { data: 'nik', name: 'nik' },
-                { data: 'jenis_kelamin', name:'jenis_kelamin'},
-                { data: 'jenjang', name:'jenjang'},
-                { data: 'jurusan', name:'jurusan'},
-                { data: 'no_telepon', name:'no_telepon'},
+                { data: 'nama_semester', name: 'nama_semester' },
+                { data: 'tahun_ajaran', name:'tahun_ajaran'},
                 { data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -85,19 +73,19 @@
 
 <script>
     $(document).ready(function() {
-        $('#guru-table').on('click', '.delete', function(e) {
+        $('#semester-table').on('click', '.delete', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
             var nama = $(this).data('nama');
             swal({
-                title: "Are you sure?",
-                text: "Kamu akan menghapus data "+nama+"",
+                title: "APAKAH KAMU YAKIN?",
+                text: "Kamu akan menghapus data Semester "+nama+"????",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/guru/"+id+"/delete";
+                    window.location = "/semester/"+id+"/delete";
                     swal("Poof! Data berhasil dihapus!", {
                     icon: "success",
                     });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Jurusan;
 use Illuminate\Http\Request;
 
+use DataTables;
+
 class JurusanController extends Controller
 {
     /**
@@ -12,9 +14,22 @@ class JurusanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function json(){
+        return DataTables::of(Jurusan::all())
+        ->addIndexColumn()
+        ->addColumn('action',function($item){
+            return '
+            <a href="'. route('jurusan.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_jurusan.'" >Delete</a>
+            ';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    } 
     public function index()
     {
-        //
+        return view('backend.jurusan.index');
     }
 
     /**
@@ -24,7 +39,7 @@ class JurusanController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.jurusan.create');
     }
 
     /**
@@ -35,7 +50,13 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_jurusan' => 'required',
+        ]);
+
+        Jurusan::create($request->all());
+
+        return redirect()->route('jurusan.index')->with('success','Data berhasil ditambahkan');
     }
 
     /**
@@ -55,9 +76,10 @@ class JurusanController extends Controller
      * @param  \App\Models\Jurusan  $jurusan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jurusan $jurusan)
+    public function edit($id)
     {
-        //
+        $jurusan = Jurusan::find($id);
+        return view('backend.jurusan.edit',compact('jurusan'));
     }
 
     /**
@@ -67,9 +89,15 @@ class JurusanController extends Controller
      * @param  \App\Models\Jurusan  $jurusan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jurusan $jurusan)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_jurusan' => 'required',
+        ]);
+
+        $jurusan->update($request->all());
+
+        return redirect()->route('jurusan.index')->with('success','Data berhasil diubah');
     }
 
     /**
@@ -80,6 +108,8 @@ class JurusanController extends Controller
      */
     public function destroy(Jurusan $jurusan)
     {
-        //
+        $jurusan->delete();
+
+        return redirect()->route('jurusan.index')->with('success','Data berhasil dihapus');
     }
 }

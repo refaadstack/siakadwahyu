@@ -25,6 +25,7 @@ class GuruController extends Controller
             return '
             <a href="'. route('guru.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
             <a href="'. route('guru.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
+            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama.'" >Delete</a>
             ';
         })
         ->editColumn('foto_guru',function($item){
@@ -193,8 +194,22 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guru $guru)
+    public function destroy($id)
     {
-        //
+        $guru = Guru::findOrFail($id);
+        Storage::delete([$guru->foto_guru]);
+        $guru->user()->delete();
+        $guru->delete();
+
+        return back()->with('success','Data berhasil dihapus');
+        // if($guru){
+        //     return response()->json([
+        //         'status' => 'success'
+        //     ]);
+        // }else{
+        //     return response()->json([
+        //         'status' => 'error'
+        //     ]);
+        // }
     }
 }

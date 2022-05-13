@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Guru;
 use Illuminate\Http\Request;
+
+use DataTables;
 
 class KelasController extends Controller
 {
@@ -12,9 +15,29 @@ class KelasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function json(){
+
+        
+        $kelas = Kelas::with('guru')->get();
+        // dd($kelas);
+        return DataTables::of($kelas)
+        ->addIndexColumn()
+        ->addColumn('action',function($item){
+            return '
+            <a href="'. route('kelas.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+            <a href="'. route('kelas.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
+            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_kelas.'" >Delete</a>
+            ';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    
+    }
+
     public function index()
     {
-        //
+        return view('backend.kelas.index');
     }
 
     /**
@@ -24,7 +47,8 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //
+        $guru = Guru::all();
+        return view('backend.kelas.create',compact ('guru'));
     }
 
     /**
@@ -35,7 +59,18 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kelas' => 'required',
+            'guru_id' => 'required',
+        ]);
+
+        // dd($request->all());
+
+        Kelas::create($request->all());
+
+        session()->flash("success","Success Message");
+        return redirect()->route('kelas.index');
+
     }
 
     /**
@@ -55,9 +90,11 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kelas $kelas)
+    public function edit($id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+        $gurus = Guru::all();
+        return view('backend.kelas.edit',compact('kelas','gurus'));
     }
 
     /**
@@ -67,9 +104,18 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kelas $kelas)
+    public function update(Request $request,$id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+        $request->validate([
+            'nama_kelas' => 'required',
+            'guru_id' => 'required',
+        ]);
+
+        $kelas->update($request->all());
+
+        session()->flash("success","Success Message");
+        return redirect()->route('kelas.index');
     }
 
     /**
@@ -78,8 +124,12 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kelas $kelas)
+    public function destroy($id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+        // $kelas->siswa()->delete();
+        $kelas->delete();
+
+        return back()->with('success','Data berhasil dihapus');
     }
 }

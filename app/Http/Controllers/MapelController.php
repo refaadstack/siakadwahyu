@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mapel;
+use App\Models\Semester;
 use Illuminate\Http\Request;
+
+use DataTables;
 
 class MapelController extends Controller
 {
@@ -12,9 +15,22 @@ class MapelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function json(){
+        $mapel = Mapel::with('semester')->get();
+        return DataTables::of($mapel)
+        ->addIndexColumn()
+        ->addColumn('action',function($item){
+            return '
+            <a href="'. route('mapel.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_mapel.'" >Delete</a>
+            ';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
     public function index()
     {
-        //
+        return view('backend.mapel.index');
     }
 
     /**
@@ -24,7 +40,8 @@ class MapelController extends Controller
      */
     public function create()
     {
-        //
+        $semester = Semester::all();
+        return view('backend.mapel.create',compact('semester'));
     }
 
     /**
@@ -35,7 +52,13 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_mapel' => 'required|unique:mapels',
+            'nama_mapel' => 'required',
+            'semester_id' => 'required',
+        ]);
+        Mapel::create($request->all());
+        return redirect()->route('mapel.index')->with('success','Data berhasil ditambahkan');
     }
 
     /**
@@ -55,9 +78,12 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mapel $mapel)
+    public function edit($id)
     {
-        //
+        $mapel = Mapel::findOrFail($id);
+        $semester = Semester::all();
+        return view('backend.mapel.edit',compact('mapel','semester'));
+
     }
 
     /**
@@ -67,9 +93,15 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mapel $mapel)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'kode_mapel' => 'required',
+            'nama_mapel' => 'required',
+            'semester_id' => 'required',
+        ]);
+        Mapel::findOrFail($id)->update($request->all());
+        return redirect()->route('mapel.index')->with('success','Data berhasil diubah');
     }
 
     /**
@@ -78,8 +110,9 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mapel $mapel)
+    public function destroy($id)
     {
-        //
+        Mapel::findOrFail($id)->delete();
+        return redirect()->route('mapel.index')->with('success','Data berhasil dihapus');
     }
 }

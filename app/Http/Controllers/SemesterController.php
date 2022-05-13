@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Semester;
 use Illuminate\Http\Request;
 
+use DataTables;
+
 class SemesterController extends Controller
 {
     /**
@@ -12,9 +14,23 @@ class SemesterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function json(){
+        // dd($semester);
+        return DataTables::of(Semester::all())
+        ->addIndexColumn()
+        ->addColumn('action',function($item){
+            return '
+            <a href="'. route('semester.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_semester.'" >Delete</a>
+            ';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+
     public function index()
     {
-        //
+        return view('backend.semester.index');
     }
 
     /**
@@ -24,7 +40,7 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.semester.create');
     }
 
     /**
@@ -35,7 +51,16 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_semester' => 'required',
+            'tahun_ajaran' => 'required',
+        ]);
+
+        Semester::create($request->all());
+
+        session()->flash("success","Success Message");
+        return redirect()->route('semester.index');
+
     }
 
     /**
@@ -55,9 +80,10 @@ class SemesterController extends Controller
      * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function edit(Semester $semester)
+    public function edit($id)
     {
-        //
+        $semester = Semester::find($id);
+        return view('backend.semester.edit',compact('semester'));
     }
 
     /**
@@ -67,9 +93,17 @@ class SemesterController extends Controller
      * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Semester $semester)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_semester' => 'required',
+            'tahun_ajaran' => 'required',
+        ]);
+
+        Semester::find($id)->update($request->all());
+
+        session()->flash("success","Success Message");
+        return redirect()->route('semester.index');
     }
 
     /**
@@ -78,8 +112,12 @@ class SemesterController extends Controller
      * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Semester $semester)
+    public function destroy($id)
     {
-        //
+        $semester = Semester::findOrFail($id);
+        $semester->delete();
+
+        
+        return back()->with('success','Data berhasil dihapus');
     }
 }

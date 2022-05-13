@@ -15,13 +15,13 @@ class Siswa extends Model
         'nisn',
         'nis',
         'jenis_kelamin',
-        'tempat_lahir'
+        'tempat_lahir',
         'tanggal_lahir',
         'agama',
         'alamat',
         'sekolah',
         'jurusan_id',
-        'status'
+        'status',
         'no_telepon_siswa',
         'foto_siswa',
         'nama_ayah',

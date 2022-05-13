@@ -9,11 +9,7 @@ class Semester extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
-        'nama_semester',
-        'tahun_ajaran',
-       
-    ];
+    protected $guarded = [];
     
     public function mapel(){
         return $this->hasMany(Mapel::class);

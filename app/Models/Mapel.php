@@ -10,7 +10,7 @@ class Mapel extends Model
     use HasFactory;
 
     protected $fillable = [
-        'kode_mapel', 'nama_mapel', 'semester_id'
+        'kode_mapel', 'nama_mapel', 'semester_id','status'
     ];
 
     public function siswa()
