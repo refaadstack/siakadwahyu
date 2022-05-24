@@ -19,7 +19,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama_semester">Semester</label>
-                            <input type="text" name="nama_semester" class="form-control @error('nama_semester') is-invalid @enderror" placeholder="Nama Semester">
+                            <input type="number" name="nama_semester" class="form-control @error('nama_semester') is-invalid @enderror" placeholder="Nama Semester">
                             @error('nama_semester')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

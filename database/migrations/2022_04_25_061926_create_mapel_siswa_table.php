@@ -15,8 +15,8 @@ class CreateMapelSiswaTable extends Migration
     {
         Schema::create('mapel_siswa', function (Blueprint $table) {
             $table->id();
-            $table->integer('siswa_id')->unsigned();
             $table->integer('mapel_id')->unsigned();
+            $table->integer('siswa_id')->unsigned();
             $table->integer('nilai');   
             $table->timestamps();
         });

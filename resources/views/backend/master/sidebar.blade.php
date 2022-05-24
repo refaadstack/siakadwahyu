@@ -22,8 +22,8 @@
               <li class="nav-item"><a class="nav-link" href="{{ route('semester.index') }}">Data Semester</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ route('jurusan.index') }}">Data Jurusan</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ route('mapel.index') }}">Data Mata Pelajaran</a></li> 
-              {{-- <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
-              --}}
+              <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
+             
             </ul>
           </li>
           <li class="nav-item dropdown">

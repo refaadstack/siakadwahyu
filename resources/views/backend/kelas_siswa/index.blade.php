@@ -3,17 +3,13 @@
 
 <div class="main-content">
     <div class="section">
-        <div class="section-header">
-            <h5>Kelas {{ $kelas->nama_kelas }}</h5><br>
-            <div id="{{ $kelas->id }}" data></div>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
-                <div class="breadcrumb-item"><a href="#">index</a></div>
-            </div>
+      <div class="section-header">
+        <h5>Kelas</h5>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
+            <div class="breadcrumb-item"><a href="#">index</a></div>
         </div>
-        <div>
-            <h6>Wali Kelas : {{ $kelas->guru->nama }}</h6>
-        </div>
+    </div>
         <div class="card-wrap">
             @if(Session::has('success'))
                 <script type="text/javascript">
@@ -32,12 +28,13 @@
             <div class="card-header">
                 <div class="card-body p-0">   
                     <div class="table-responsive">
-                        <a href="{{ route('kelas-siswa.create',$kelas->id) }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
-                        <table id="kelasShow-table" class="table table-striped table-bordered bg-white" style="width:100%">
+                        <a href="{{ route('kelas.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        <table id="kelas-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>no</th>
-                                    <th>Nama Siswa</th>
+                                    <th>Nama Kelas</th>
+                                    <th>Wali Kelas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -59,13 +56,14 @@
 
 <script>
     $(function() {
-        $('#kelasShow-table').DataTable({
+        $('#kelas-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url()->current() !!}',
+            ajax: 'kelas/json',
             columns: [
                 { data:'DT_RowIndex', name:'DT_RowIndex', width:'5%'},
-                { data: 'nama', name:'siswa.nama'},
+                { data: 'nama_kelas', name: 'nama_kelas' },
+                { data: 'guru.nama', name:'guru.nama'},
                 { data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -75,20 +73,19 @@
 
 <script>
     $(document).ready(function() {
-        $('#kelasShow-table').on('click', '.delete', function(e) {
+        $('#kelas-table').on('click', '.delete', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
-            var idkelas = {{ $kelas->id }};
             var nama = $(this).data('nama');
             swal({
                 title: "APAKAH KAMU YAKIN?",
-                text: "Kamu akan menghapus data siswa "+nama+" di kelas ini????",
+                text: "Kamu akan menghapus data Kelas "+nama+"????",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/kelas-siswa/"+idkelas+"/"+id+"/delete";
+                    window.location = "/kelas/"+id+"/delete";
                     swal("Poof! Data berhasil dihapus!", {
                     icon: "success",
                     });

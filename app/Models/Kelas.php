@@ -19,7 +19,7 @@ class Kelas extends Model
 
     public function siswa()
     {
-        return $this->hasMany(Siswa::class);
+        return $this->belongsToMany(Siswa::class)->withPivot('kelas_id','siswa_id')->withTimestamps();
     }
     
 }

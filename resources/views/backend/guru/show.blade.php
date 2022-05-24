@@ -15,7 +15,7 @@
             <div class="card-body">
                   <div class="row">
                       <div class="col-md-3">
-                          <img src="{{ Storage::url($guru->foto_guru)}}" alt="">
+                          <img src="{{ Storage::url($guru->foto_guru)}}" alt="foto_guru" width="200px">
                       </div>
                       <div class="col-md-9">
                             <table class="table table-bordered ">
@@ -64,6 +64,29 @@
                                     <td>{{ $guru->no_telepon }}</td>
                                 </tr>
                             </table>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Mata Pelajaran Yang diampu</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-primary text-white" width="10%">no</th>
+                                                <th class="bg-primary text-white text-center" width="25%">Nama Mapel</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($guru->mapel as $m)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $m->nama_mapel }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                       </div>
                   </div>
 

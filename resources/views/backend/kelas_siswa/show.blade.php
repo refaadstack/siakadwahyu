@@ -5,7 +5,6 @@
     <div class="section">
         <div class="section-header">
             <h5>Kelas {{ $kelas->nama_kelas }}</h5><br>
-            <div id="{{ $kelas->id }}" data></div>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
                 <div class="breadcrumb-item"><a href="#">index</a></div>
@@ -32,7 +31,7 @@
             <div class="card-header">
                 <div class="card-body p-0">   
                     <div class="table-responsive">
-                        <a href="{{ route('kelas-siswa.create',$kelas->id) }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        <a href="{{ route('kelas-siswa.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
                         <table id="kelasShow-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>
@@ -65,7 +64,7 @@
             ajax: '{!! url()->current() !!}',
             columns: [
                 { data:'DT_RowIndex', name:'DT_RowIndex', width:'5%'},
-                { data: 'nama', name:'siswa.nama'},
+                { data: 'siswa.nama', name:'siswa.nama', orderable: true, seacrhable: true},
                 { data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -78,7 +77,6 @@
         $('#kelasShow-table').on('click', '.delete', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
-            var idkelas = {{ $kelas->id }};
             var nama = $(this).data('nama');
             swal({
                 title: "APAKAH KAMU YAKIN?",
@@ -88,7 +86,7 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/kelas-siswa/"+idkelas+"/"+id+"/delete";
+                    window.location = "/kelas-siswa/"+id+"/delete";
                     swal("Poof! Data berhasil dihapus!", {
                     icon: "success",
                     });

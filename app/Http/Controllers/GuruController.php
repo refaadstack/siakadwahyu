@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\User;
+use App\Models\Mapel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class GuruController extends Controller
             'jenjang' => 'required',
             'jurusan' => 'required',
             'no_telepon' => 'required',
-            'foto_guru' => 'required',
+            'foto_guru' => 'required|Mimes:jpeg,png,jpg,gif,svg|Max:2048',
         ]);
 
 
@@ -211,5 +212,22 @@ class GuruController extends Controller
         //         'status' => 'error'
         //     ]);
         // }
+    }
+    public function tambahMapel(){
+        $guru = Guru::all();
+        $mapel = Mapel::all();
+        return view('backend.guru.tambahMapel',compact('guru','mapel'));
+    }
+
+    public function storeMapel(Request $request)
+    {
+        $guru = Guru::find($request->guru);
+
+        if($guru->mapel()->where('mapel_id',$request->mapel)->exists()){
+            return back()->with('error','Data sudah ada');
+        }else{
+            $guru->mapel()->attach($request->mapel);
+            return back()->with('info','Data berhasil ditambahkan');
+        }
     }
 }

@@ -44,9 +44,9 @@ class Siswa extends Model
     {
         return $this->belongsTo(Jurusan::class);
     }
-    public function mapel()
-    {
-        return $this->belongsToMany(Mapel::class);
+    
+    public function mapel(){
+        return $this->belongsToMany(Mapel::class)->withPivot(['nilai'])->withTimestamps();
     }
     public function kelas()
     {

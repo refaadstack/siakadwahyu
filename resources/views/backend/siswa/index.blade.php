@@ -3,17 +3,13 @@
 
 <div class="main-content">
     <div class="section">
-        <div class="section-header">
-            <h5>Kelas {{ $kelas->nama_kelas }}</h5><br>
-            <div id="{{ $kelas->id }}" data></div>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
-                <div class="breadcrumb-item"><a href="#">index</a></div>
-            </div>
+      <div class="section-header">
+        <h5>Siswa</h5>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">Siswa</a></div>
+            <div class="breadcrumb-item"><a href="#">index</a></div>
         </div>
-        <div>
-            <h6>Wali Kelas : {{ $kelas->guru->nama }}</h6>
-        </div>
+    </div>
         <div class="card-wrap">
             @if(Session::has('success'))
                 <script type="text/javascript">
@@ -32,13 +28,24 @@
             <div class="card-header">
                 <div class="card-body p-0">   
                     <div class="table-responsive">
-                        <a href="{{ route('kelas-siswa.create',$kelas->id) }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
-                        <table id="kelasShow-table" class="table table-striped table-bordered bg-white" style="width:100%">
+                        <a href="{{ route('siswa.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        <table id="siswa-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>no</th>
-                                    <th>Nama Siswa</th>
+                                    <th>Nama</th>
+                                    <th>Foto</th>
+                                    <th>NIS</th>
+                                    <th>NISN</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Tempat Lahir</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Alamat</th>
+                                    <th>Agama</th>
+                                    <th>No Telepon</th>
                                     <th>Aksi</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,13 +66,22 @@
 
 <script>
     $(function() {
-        $('#kelasShow-table').DataTable({
+        $('#siswa-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! url()->current() !!}',
+            ajax: 'siswa/json',
             columns: [
                 { data:'DT_RowIndex', name:'DT_RowIndex', width:'5%'},
-                { data: 'nama', name:'siswa.nama'},
+                { data: 'nama', name: 'nama' },
+                { data: 'foto_siswa', name:'foto_siswa'},
+                { data: 'nis', name: 'nis' },
+                { data: 'nisn', name: 'nisn' },
+                { data: 'jenis_kelamin', name:'jenis_kelamin'},
+                { data: 'tempat_lahir', name:'tempat_lahir'},
+                { data: 'tanggal_lahir', name:'tanggal_lahir'},
+                { data: 'alamat', name:'alamat'},
+                { data: 'agama', name:'agama'},
+                { data: 'no_telepon_siswa', name:'no_telepon_siswa'},
                 { data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -75,20 +91,19 @@
 
 <script>
     $(document).ready(function() {
-        $('#kelasShow-table').on('click', '.delete', function(e) {
+        $('#siswa-table').on('click', '.delete', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
-            var idkelas = {{ $kelas->id }};
             var nama = $(this).data('nama');
             swal({
-                title: "APAKAH KAMU YAKIN?",
-                text: "Kamu akan menghapus data siswa "+nama+" di kelas ini????",
+                title: "Are you sure?",
+                text: "Kamu akan menghapus data "+nama+"",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/kelas-siswa/"+idkelas+"/"+id+"/delete";
+                    window.location = "/siswa/"+id+"/delete";
                     swal("Poof! Data berhasil dihapus!", {
                     icon: "success",
                     });

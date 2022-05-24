@@ -26,14 +26,14 @@
                         </div>
                         <div class="form-group">
                             <label for="nip">NIP</label>
-                            <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP">
+                            <input type="number" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP">
                             @error('nip')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" placeholder="NIK">
+                            <input type="number" name="nik" class="form-control @error('nik') is-invalid @enderror" placeholder="NIK">
                             @error('nik')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label for="no_telepon">No Telp</label>
-                            <input type="text" name="no_telepon" class="form-control @error('no_telepon') is-invalid @enderror" placeholder="No Telp">
+                            <input type="number" name="no_telepon" class="form-control @error('no_telepon') is-invalid @enderror" placeholder="No Telp">
                             @error('no_telepon')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

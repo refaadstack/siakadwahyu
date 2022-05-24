@@ -7,6 +7,7 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\KelasSiswaController;
 
 use App\Http\Controllers\DashboardController;
 
@@ -35,6 +36,8 @@ Route::get('guru/{id}/edit',[GuruController::class,'edit'])->name('guru.edit');
 Route::put('guru/{id}/update',[GuruController::class,'update'])->name('guru.update');
 Route::get('guru/{id}/show',[GuruController::class,'show'])->name('guru.show');
 Route::get('guru/{id}/delete',[GuruController::class,'destroy'])->name('guru.destroy');
+route::get('guru/tambah-mapel', [GuruController::class, 'tambahMapel'])->name('guru.tambah-mapel');
+route::post('guru/store-mapel', [GuruController::class, 'storeMapel'])->name('guru.store-mapel');
 
 route::get('kelas',[KelasController::class, 'index'])->name('kelas.index');
 route::get('kelas/json',[KelasController::class,'json']);
@@ -71,6 +74,30 @@ route::post('mapel/store',[MapelController::class,'store'])->name('mapel.store')
 route::get('mapel/{id}/edit',[MapelController::class,'edit'])->name('mapel.edit');
 route::put('mapel/{id}/update',[MapelController::class,'update'])->name('mapel.update');
 route::get('mapel/{id}/delete',[MapelController::class,'destroy'])->name('mapel.destroy');
+
+
+route::get('siswa',[SiswaController::class, 'index'])->name('siswa.index');
+route::get('siswa/json',[SiswaController::class,'json']);
+route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create');
+route::post('siswa/store',[SiswaController::class,'store'])->name('siswa.store');
+route::get('siswa/{id}/edit',[SiswaController::class,'edit'])->name('siswa.edit');
+route::put('siswa/{id}/update',[SiswaController::class,'update'])->name('siswa.update');
+route::get('siswa/{id}/delete',[SiswaController::class,'destroy'])->name('siswa.destroy');
+Route::get('siswa/{id}/show',[SiswaController::class,'show'])->name('siswa.show');
+route::post('siswa/{id}/addnilai',[SiswaController::class,'addnilai']);
+route::get('siswa/{idmapel}/{idsiswa}/editnilaimapel',[SiswaController::class,'editnilai'])->name('siswa.editnilai');
+route::post('siswa/{idmapel}/{idsiswa}/updatenilai',[SiswaController::class,'updatenilai'])->name('siswa.updatenilai');
+route::get('/siswa/{idsiswa}/{idmapel}/deletenilai',[SiswaController::class,'deletenilai']);
+
+route::get('kelas-siswa/{id}/show',[KelasSiswaController::class, 'show'])->name('kelas-siswa.show');
+route::get('kelas-siswa/{id}/getSiswa',[KelasSiswaController::class,'getSiswa'])->name('kelas-siswa.getSiswa');
+route::get('kelas-siswa/{id}/create',[KelasSiswaController::class,'create'])->name('kelas-siswa.create');
+route::post('kelas-siswa/{id}/store',[KelasSiswaController::class,'store'])->name('kelas-siswa.store');
+route::get('kelas-siswa/{id}/edit',[KelasSiswaController::class,'edit'])->name('kelas-siswa.edit');
+route::put('kelas-siswa/{id}/update',[KelasSiswaController::class,'update'])->name('kelas-siswa.update');
+route::get('kelas-siswa/{idsiswa}/{idkelas}/delete',[KelasSiswaController::class,'destroy'])->name('kelas-siswa.destroy');
+route::get('kelas-siswa/select2/{id}',[KelasSiswaController::class,'select2'])->name('kelas-siswa.select2');
+
 
 
 

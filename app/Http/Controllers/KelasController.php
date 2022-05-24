@@ -26,7 +26,7 @@ class KelasController extends Controller
         ->addColumn('action',function($item){
             return '
             <a href="'. route('kelas.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
-            <a href="'. route('kelas.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
+            <a href="'. route('kelas-siswa.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
             <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_kelas.'" >Delete</a>
             ';
         })

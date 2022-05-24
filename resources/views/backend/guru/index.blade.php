@@ -29,6 +29,7 @@
                 <div class="card-body p-0">   
                     <div class="table-responsive">
                         <a href="{{ route('guru.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        <a href="{{ route('guru.tambah-mapel') }}" class="btn btn-sm btn-warning mb-2">+tambah guru mata pelajaran</a>
                         <table id="guru-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>

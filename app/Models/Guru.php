@@ -23,6 +23,10 @@ class Guru extends Model
     {
         return $this->hasMany(Kelas::class);
     }
+    public function mapel()
+    {
+        return $this->belongsToMany(Mapel::class)->withTimeStamps();
+    }
     
 
 }

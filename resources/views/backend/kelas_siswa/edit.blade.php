@@ -3,9 +3,9 @@
 <div class="main-content">
     <div class="section">
         <div class="section-header">
-            <h5>Semester</h5>
+            <h5>Kelas</h5>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Semester</a></div>
+                <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
                 <div class="breadcrumb-item"><a href="#">Edit</a></div>
             </div>
         </div>
@@ -14,19 +14,24 @@
             <div class="card-header">
                 <h5>Form Edit</h5>
                 <div class="card-body bg-light">
-                    <form action="{{ route('semester.update',$semester->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('kelas.update',$kelas->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="nama_semester">Nama Semester</label>
-                            <input type="number" name="nama_semester" class="form-control @error('nama_semester') is-invalid @enderror" placeholder="Nama" value="{{ $semester->nama_semester }}">
-                            @error('nama_semester')
+                            <label for="nama_kelas">Nama Kelas</label>
+                            <input type="text" name="nama_kelas" class="form-control @error('nama_kelas') is-invalid @enderror" placeholder="Nama" value="{{ $kelas->nama_kelas }}">
+                            @error('nama_kelas')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="guru_id">Pilih Guru</label>
-                            <input type="text" name="tahun_ajaran" class="form-control @error('tahun_ajaran') is-invalid @enderror" placeholder="Tahun Ajaran" value="{{ $semester->tahun_ajaran }}">
+                            <select name="guru_id" class="form-control @error('guru_id') is-invalid @enderror">
+                                <option value="">Pilih Guru</option>
+                                @foreach ($gurus as $guru)
+                                    <option value="{{ $guru->id }}" {{ $guru->id == $kelas->guru_id ? 'selected' : '' }}>{{ $guru->nama }}</option>
+                                @endforeach
+                            </select>
                             @error('guru_id')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
