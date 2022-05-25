@@ -21,6 +21,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   {{-- datatable --}}
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+  <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body>

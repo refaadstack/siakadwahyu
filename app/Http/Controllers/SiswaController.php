@@ -140,12 +140,16 @@ class SiswaController extends Controller
         $siswaa = DB::table('siswas as s')
         ->join('mapel_siswa as mp','s.id','=','mp.siswa_id')
         ->join('mapels as m','mp.mapel_id','=','m.id')
+        ->join('semesters as sm','m.semester_id','=','sm.id')
         ->select('s.*',
                 'mp.id as mp_id',
                 'm.nama_mapel as nama_mapel',
+                'sm.nama_semester as semester',
+                'sm.tahun_ajaran as tahun_ajaran',
                 'mp.nilai as nilai')
         ->where('s.id',$id)
-        ->get();
+        ->orderBy('semester','asc')
+        ->paginate(3);
         $kelas = Siswa::find($id)->kelas;
 
         // dd($kelas);

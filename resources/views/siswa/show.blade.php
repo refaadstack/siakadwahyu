@@ -104,34 +104,6 @@
                       </div>
                     {{-- Card Nilai --}}
                     <div class="col-md-8">
-                        <div class="card">
-                                <div class="container">
-                                    <button class="btn btn-primary" id="tambah">Tambah Data Nilai</button>
-                                    <button class="btn btn-danger" id="tutup">Tutup</button>
-                                <div class="card-header data-nilai">
-                                    <h5 class="card-title">Form Tambah Data Nilai</h5>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <form action="/siswa/{{ $siswa->id }}/addnilai" method="POST" >
-                                        @csrf
-                                        <div class="form-group data-nilai">
-                                            <label for="">Nama Mata Pelajaran</label>
-                                            <select class="form-control" name="mapel_id">
-                                                <option class="form-control" value="" selected disabled>Pilih Mata Pelajaran</option>
-                                                @foreach ($matapelajaran as $item)
-                                                    <option class="form-control" value="{{ $item->id }}">{{ $item->nama_mapel }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group data-nilai">
-                                            <label for="nilai">Nilai</label>
-                                            <input type="number" class="form-control" min="0" max="100"  name="nilai" id="nilai" placeholder="Masukkan Nilai">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary data-nilai">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
                                 <div class="card">
                                     <div class="card-header bg-primary text-white">
                                             Nilai Mata Pelajaran
@@ -144,7 +116,6 @@
                                                         <th>Mata Pelajaran</th>
                                                         <th>Semester</th>
                                                         <th>Nilai</th>
-                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -154,8 +125,6 @@
                                                         <td>{{ $item->nama_mapel }}</td>
                                                         <td>{{ $item->semester }} - {{ $item->tahun_ajaran }}</td>
                                                         <td>{{ $item->nilai }}</td>
-                                                        <td><a href="/siswa/{{ $item->mp_id }}/{{ $item->id }}/editnilaimapel" class="btn btn-warning">Edit</a>
-                                                        <button id="#delete" class="btn btn-danger delete" data-id="{{ $item->mp_id }}">Hapus</button></td>
                                                         
                                                     </tr>
                                                     
@@ -184,7 +153,7 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->nama_kelas }}</td>
-                                                        <td>{{ $item->guru->nama }}</td>
+                                                        <td>{{ $item->nama_guru }}</td>
                                                     </tr>
                                                     
                                                     @endforeach
@@ -205,53 +174,5 @@
         </div>        
     </div>
 </div>
-@push('scripts')
-
-<script src="{{ asset('stisla/assets/js/page/modules-sweetalert.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.delete').on('click', function(e){
-            e.preventDefault();
-            var idsiswa = {{ $siswa->id }};
-            var idmapel = $(this).data('id');
-
-            console.log(idmapel, idsiswa);
-            swal({
-                title: 'Apakah anda yakin?',
-                text: "Data akan dihapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((willDelete) => {
-                if (willDelete) {
-                    window.location = "/siswa/"+idsiswa+"/"+idmapel+"/deletenilai";
-                    swal("Poof! Data berhasil dihapus!", {
-                    icon: "success",
-                    });
-                } else {
-                    swal("Data ga jadi dihapus!");
-                }
-                });
-            })
-        });    
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $('.data-nilai').hide();
-    $('#tutup').hide();
-    $('#tambah').click(function(){
-        $('.data-nilai').show();
-        $('#tutup').show();
-    });
-    
-    $('#tutup').click(function(){
-        $('.data-nilai').hide();
-        $('#tutup').hide();
-    });
-});
-</script>
-@endpush
 
 @endsection

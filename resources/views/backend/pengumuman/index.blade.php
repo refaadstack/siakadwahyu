@@ -4,9 +4,9 @@
 <div class="main-content">
     <div class="section">
       <div class="section-header">
-        <h5>Kelas</h5>
+        <h5>Pengumuman</h5>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
+            <div class="breadcrumb-item active"><a href="#">Pengumuman</a></div>
             <div class="breadcrumb-item"><a href="#">index</a></div>
         </div>
     </div>
@@ -28,13 +28,12 @@
             <div class="card-header">
                 <div class="card-body p-0">   
                     <div class="table-responsive">
-                        <a href="{{ route('kelas.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
-                        <table id="kelas-table" class="table table-striped table-bordered bg-white" style="width:100%">
+                        <a href="{{ route('pengumuman.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        <table id="pengumuman-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>no</th>
-                                    <th>Nama Kelas</th>
-                                    <th>Wali Kelas</th>
+                                    <th>Judul Pengumuman</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -56,14 +55,13 @@
 
 <script>
     $(function() {
-        $('#kelas-table').DataTable({
+        $('#pengumuman-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: 'kelas/json',
+            ajax: 'pengumuman/json',
             columns: [
                 { data:'DT_RowIndex', name:'DT_RowIndex', width:'5%'},
-                { data: 'nama_kelas', name: 'nama_kelas' },
-                { data: 'guru.nama', name:'guru.nama'},
+                { data: 'judul', name: 'judul' },
                 { data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -73,19 +71,19 @@
 
 <script>
     $(document).ready(function() {
-        $('#kelas-table').on('click', '.delete', function(e) {
+        $('#pengumuman-table').on('click', '.delete', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
             var nama = $(this).data('nama');
             swal({
                 title: "APAKAH KAMU YAKIN?",
-                text: "Kamu akan menghapus data Kelas "+nama+"????",
+                text: "Kamu akan menghapus data Pengumuman "+nama+"????",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/kelas/"+id+"/delete";
+                    window.location = "/pengumuman/"+id+"/delete";
                     swal("Poof! Data berhasil dihapus!", {
                     icon: "success",
                     });

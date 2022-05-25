@@ -60,6 +60,9 @@ class KelasSiswaController extends Controller
         // dd($request->all());
         $kelas = Kelas::find($idkelas);
         
+        if($kelas->siswa()->where('siswa_id',$request->siswa_id)->exists()){
+            return redirect()->back()->with('error','Siswa sudah terdaftar di kelas ini');
+        }
         $kelas->siswa()->attach(['siswa_id'=>$request->siswa_id]);
         
         return redirect()->route('kelas-siswa.show',$idkelas)->with('success','Data Berhasil Ditambahkan');

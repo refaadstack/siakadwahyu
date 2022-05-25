@@ -3,6 +3,7 @@
 <div class="main-content">
     <div class="section">
         <div class="section-header">DASHBOARD</div>
+        @include('backend.master.info')
         <div class="section-body">
             <div class="row">
                 <div class="col-md-12">
@@ -55,6 +56,28 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="container">
+                <h3>Pengumuman</h3>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+
+                    @foreach ($pengumuman as $p)
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{ $p->judul }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <small>{{ date('j F Y',strtotime($p->created_at)) }}</small>
+                                <p>{!! Str::limit($p->isi,40)!!}</p>
+                                <a href="{{ route('pengumuman.show',$p->slug) }}" class="float-right btn btn-primary">Baca pengumuman</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

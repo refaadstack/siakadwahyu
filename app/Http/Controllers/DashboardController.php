@@ -8,6 +8,7 @@ use App\Models\Guru;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use App\Models\Siswa;
+use App\models\Pengumuman;
 
 class DashboardController extends Controller
 {
@@ -32,6 +33,7 @@ class DashboardController extends Controller
         $jumlah_guru = Guru::count();
         $jumlah_kelas = Kelas::count();
         $jumlah_mapel = Mapel::count();
-        return view('backend.dashboard.index', compact('jumlah_siswa', 'jumlah_guru', 'jumlah_kelas', 'jumlah_mapel'));
+        $pengumuman = Pengumuman::orderBy('created_at','desc')->take(6)->get();
+        return view('backend.dashboard.index', compact('jumlah_siswa', 'jumlah_guru', 'jumlah_kelas', 'jumlah_mapel','pengumuman'));
     }
 }

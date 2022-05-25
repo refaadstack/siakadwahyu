@@ -4,12 +4,13 @@
 <div class="main-content">
     <div class="section">
         <div class="section-header">
-            <h5>Kelas</h5>
+            <h5>Kelas {{ $kelas->nama_kelas }}</h5>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Kelas</a></div>
                 <div class="breadcrumb-item"><a href="#">Tambah Siswa</a></div>
             </div>
         </div>
+        @include('backend.master.info')
     </div>
         <div class="card-wrap">
             <div class="card-header">
