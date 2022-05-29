@@ -1,4 +1,5 @@
 @extends('backend.master.master')
+@section('title', 'Create Guru')
 @section('content')
 
 <div class="main-content">

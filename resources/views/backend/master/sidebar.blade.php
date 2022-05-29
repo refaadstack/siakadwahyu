@@ -17,6 +17,7 @@
           <li class="nav-item dropdown">
             <a href="#" class=" nav-link has-dropdown"><i class="fas fa-store"></i><span>Master Data</span></a>
             <ul class="dropdown-menu">
+              <li class="nav-item"><a class="nav-link" href="{{ route('ganti-password') }}">Ganti Password</a></li>
               @if (Auth::user()->role == 'admin')
                   <li class="nav-item"><a class="nav-link" href="{{ route('pengumuman.index') }}">Pengumuman</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('guru.index') }}">Data Guru</a></li>
@@ -27,8 +28,6 @@
                   <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
 
               @elseif (Auth::user()->role == 'guru')
-                  <li class="nav-item"><a class="nav-link" href="{{ route('kelas.index') }}">Data Kelas</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{{ route('mapel.index') }}">Data Mata Pelajaran</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('guru.profile') }}">Profil Saya</a></li>
               @else

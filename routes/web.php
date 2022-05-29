@@ -10,7 +10,7 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\KelasSiswaController;
 use App\Http\Controllers\ProfilSayaController;
 use App\Http\Controllers\PengumumanController;
-
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -26,6 +26,22 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('auth.login');
+});
+
+route::group(['middleware'=>['auth','checkRole:admin,guru']],function(){
+    
+    route::get('siswa',[SiswaController::class, 'index'])->name('siswa.index');
+    route::get('siswa/json',[SiswaController::class,'json']);
+    route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create');
+    route::post('siswa/store',[SiswaController::class,'store'])->name('siswa.store');
+    route::get('siswa/{id}/edit',[SiswaController::class,'edit'])->name('siswa.edit');
+    route::put('siswa/{id}/update',[SiswaController::class,'update'])->name('siswa.update');
+    route::get('siswa/{id}/delete',[SiswaController::class,'destroy'])->name('siswa.destroy');
+    Route::get('siswa/{id}/show',[SiswaController::class,'show'])->name('siswa.show');
+    route::post('siswa/{id}/addnilai',[SiswaController::class,'addnilai']);
+    route::get('siswa/{idmapel}/{idsiswa}/editnilaimapel',[SiswaController::class,'editnilai'])->name('siswa.editnilai');
+    route::post('siswa/{idmapel}/{idsiswa}/updatenilai',[SiswaController::class,'updatenilai'])->name('siswa.updatenilai');
+    route::get('/siswa/{idsiswa}/{idmapel}/deletenilai',[SiswaController::class,'deletenilai']);
 });
 
 route::group(['middleware'=>['auth','checkRole:admin']],function(){
@@ -77,18 +93,6 @@ route::group(['middleware'=>['auth','checkRole:admin']],function(){
     route::get('mapel/{id}/delete',[MapelController::class,'destroy'])->name('mapel.destroy');
 
 
-    route::get('siswa',[SiswaController::class, 'index'])->name('siswa.index');
-    route::get('siswa/json',[SiswaController::class,'json']);
-    route::get('siswa/create',[SiswaController::class,'create'])->name('siswa.create');
-    route::post('siswa/store',[SiswaController::class,'store'])->name('siswa.store');
-    route::get('siswa/{id}/edit',[SiswaController::class,'edit'])->name('siswa.edit');
-    route::put('siswa/{id}/update',[SiswaController::class,'update'])->name('siswa.update');
-    route::get('siswa/{id}/delete',[SiswaController::class,'destroy'])->name('siswa.destroy');
-    Route::get('siswa/{id}/show',[SiswaController::class,'show'])->name('siswa.show');
-    route::post('siswa/{id}/addnilai',[SiswaController::class,'addnilai']);
-    route::get('siswa/{idmapel}/{idsiswa}/editnilaimapel',[SiswaController::class,'editnilai'])->name('siswa.editnilai');
-    route::post('siswa/{idmapel}/{idsiswa}/updatenilai',[SiswaController::class,'updatenilai'])->name('siswa.updatenilai');
-    route::get('/siswa/{idsiswa}/{idmapel}/deletenilai',[SiswaController::class,'deletenilai']);
 
 
     route::get('kelas-siswa/{id}/show',[KelasSiswaController::class, 'show'])->name('kelas-siswa.show');
@@ -117,6 +121,9 @@ route::middleware(['auth','checkRole:siswa'])->group(function(){
     route::get('/siswa/profilsaya',[ProfilSayaController::class,'profilSiswa'])->name('siswa.profile');
     route::get('/siswa/dashboard',[SiswaController::class,'dashboard'])->name('siswa.dashboard');
 });
+
+route::get('ganti-password',[PasswordController::class,'index'])->name('ganti-password');
+route::post('ganti-password/update',[PasswordController::class,'update'])->name('ganti-password.update');
 route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 route::get('/pengumuman/json',[PengumumanController::class,'json']);
 route::get('/pengumuman/{slug}/show',[PengumumanController::class,'show'])->name('pengumuman.show');

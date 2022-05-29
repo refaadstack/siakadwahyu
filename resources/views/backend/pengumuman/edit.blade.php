@@ -1,4 +1,5 @@
 @extends('backend.master.master')
+@section('title', 'Pengumuman')
 @section('content')
 
 <div class="main-content">
@@ -13,7 +14,7 @@
     </div>
         <div class="card-wrap">
             <div class="card-header">
-                <h5>Form Tambah</h5>
+                <h5>Form Edit</h5>
                 <div class="card-body bg-light">
                     <form action="{{ route('pengumuman.update',$pengumuman->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -25,7 +26,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="isi">Tahun Ajaran</label>
+                            <label for="isi">Isi</label>
                             <textarea type="text" id="body" name="isi" class="my-editor form-control @error('isi') is-invalid @enderror" placeholder="isi">{{ $pengumuman->isi }}</textarea>
                             @error('isi')
                                 <div class="alert alert-danger">{{ $message }}</div>

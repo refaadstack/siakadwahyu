@@ -1,2 +1,1 @@
-<h5 class="text-dark" style="text-decoration: none">
-</h5>
+<img src="{{ asset('img/logo.png') }}" alt="Logo Sekolah" style="width: 150px" >

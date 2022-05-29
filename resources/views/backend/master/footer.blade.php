@@ -1,6 +1,6 @@
 <footer class="main-footer">
-    <div class="footer-left text-white">
-      Copyright &copy; 2022 Redho Fadillah Adha <div class="bullet"></div></a>
+    <div class="footer-left text-dark">
+      Copyright &copy; 2022 SMA Negeri 12 Kota Jambi <div class="bullet"></div></a>
     </div>
     <div class="footer-right">
       2.3.0

@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Auth;
 use DB;
 use DataTables;
 
@@ -26,11 +27,22 @@ class SiswaController extends Controller
         return Datatables::of($siswa)
         ->addIndexColumn()
         ->addColumn('action',function($item){
-            return '
-            <a href="'. route('siswa.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
-            <a href="'. route('siswa.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
-            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama.'" >Delete</a>
-            ';
+            $actionBtn='';
+            if(Auth::user()->role == "admin"){
+                $actionBtn.=
+                '
+                <a href="'. route('siswa.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+                <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama.'" >Delete</a>
+                <a href="'. route('siswa.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
+                '; 
+            }
+            if(Auth::user()->role == "guru"){
+
+                $actionBtn.='
+                <a href="'. route('siswa.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
+                ';
+            }
+                return $actionBtn;
         })
         ->editColumn('foto_siswa',function($item){
             return '<img style="max-width: 80px" src="'. Storage::url($item->foto_siswa) .'"/>';
@@ -154,7 +166,19 @@ class SiswaController extends Controller
 
         // dd($kelas);
         $mapel = Mapel::find($id);
-        $matapelajaran = Mapel::all()->where('status','Aktif');
+
+        if(auth()->user()->role == 'admin'){
+            $matapelajaran = Mapel::all()->where('status','Aktif');
+        }
+        else {
+            $matapelajaran = DB::table('guru_mapel as gm')
+            ->join('mapels as m','m.id','=','gm.mapel_id')
+            ->join('gurus as g','g.id','=','gm.guru_id')
+            ->select('m.*')
+            ->where('g.user_id',auth()->user()->id)
+            ->where('m.status','Aktif')
+            ->get();
+        }
         $siswa = Siswa::findOrFail($id);
         return view('backend.siswa.show',compact('siswa','siswaa','matapelajaran','kelas'));
     }

@@ -1,4 +1,5 @@
 @extends('backend.master.master')
+@section('title', 'Siswa')
 @section('content')
 
 <div class="main-content">
@@ -28,7 +29,9 @@
             <div class="card-header">
                 <div class="card-body p-0">   
                     <div class="table-responsive">
-                        <a href="{{ route('siswa.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        @if (auth()->user()->role == 'admin')    
+                            <a href="{{ route('siswa.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
+                        @endif
                         <table id="siswa-table" class="table table-striped table-bordered bg-white" style="width:100%">
                             <thead>
                                 <tr>

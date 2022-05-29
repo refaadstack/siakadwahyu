@@ -1,4 +1,5 @@
 @extends('backend.master.master')
+@section('title', 'Siswa Profil')
 @section('content')
 
 <div class="main-content">
@@ -144,7 +145,9 @@
                                                         <th>Mata Pelajaran</th>
                                                         <th>Semester</th>
                                                         <th>Nilai</th>
+                                                        @if(auth()->user()->role == 'admin')
                                                         <th>Aksi</th>
+                                                        @endif
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -154,9 +157,10 @@
                                                         <td>{{ $item->nama_mapel }}</td>
                                                         <td>{{ $item->semester }} - {{ $item->tahun_ajaran }}</td>
                                                         <td>{{ $item->nilai }}</td>
+                                                        @if(auth()->user()->role == 'admin')
                                                         <td><a href="/siswa/{{ $item->mp_id }}/{{ $item->id }}/editnilaimapel" class="btn btn-warning">Edit</a>
                                                         <button id="#delete" class="btn btn-danger delete" data-id="{{ $item->mp_id }}">Hapus</button></td>
-                                                        
+                                                        @endif
                                                     </tr>
                                                     
                                                     @endforeach

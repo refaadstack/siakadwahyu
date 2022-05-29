@@ -1,4 +1,5 @@
 @extends('backend.master.master')
+@section('title', 'Pengumuman')
 @section('content')
 
 <div class="main-content">
@@ -25,7 +26,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="isi">Tahun Ajaran</label>
+                            <label for="isi">Isi</label>
                             <textarea type="text" id="body" name="isi" class="my-editor form-control @error('isi') is-invalid @enderror" placeholder="isi"></textarea>
                             @error('isi')
                                 <div class="alert alert-danger">{{ $message }}</div>
