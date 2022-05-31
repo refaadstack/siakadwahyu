@@ -25,6 +25,8 @@
                   <li class="nav-item"><a class="nav-link" href="{{ route('semester.index') }}">Data Semester</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('jurusan.index') }}">Data Jurusan</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('mapel.index') }}">Data Mata Pelajaran</a></li> 
+                  <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.index') }}">Data Jadwal</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ route('jam.index') }}">Data Jam</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
 
               @elseif (Auth::user()->role == 'guru')

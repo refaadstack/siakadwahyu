@@ -7,11 +7,14 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\KelasSiswaController;
 use App\Http\Controllers\ProfilSayaController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\JamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +114,24 @@ route::group(['middleware'=>['auth','checkRole:admin']],function(){
     route::post('/pengumuman/{slug}/update',[PengumumanController::class,'update'])->name('pengumuman.update');
     route::get('/pengumuman/{slug}/delete',[PengumumanController::class,'destroy'])->name('pengumuman.destroy');
 
+    route::get('/jadwal',[JadwalController::class,'index'])->name('jadwal.index');
+    route::get('/jadwal/json',[JadwalController::class,'json']);
+    route::get('/jadwal/create',[JadwalController::class,'create'])->name('jadwal.create');
+    route::post('/jadwal/store',[JadwalController::class,'store'])->name('jadwal.store');
+    route::get('/jadwal/{id}/edit',[JadwalController::class,'edit'])->name('jadwal.edit');
+    route::put('/jadwal/{id}/update',[JadwalController::class,'update'])->name('jadwal.update');
+    route::get('/jadwal/{id}/delete',[JadwalController::class,'destroy'])->name('jadwal.destroy');
+
+    route::get('/jam',[JamController::class,'index'])->name('jam.index');
+    route::get('/jam/json',[JamController::class,'json']);
+    route::get('/jam/create',[JamController::class,'create'])->name('jam.create');
+    route::post('/jam/store',[JamController::class,'store'])->name('jam.store');
+    route::get('/jam/{id}/edit',[JamController::class,'edit'])->name('jam.edit');
+    route::put('/jam/{id}/update',[JamController::class,'update'])->name('jam.update');
+    route::get('/jam/{id}/delete',[JamController::class,'destroy'])->name('jam.destroy');
+    
+
+
 });
 
 route::middleware(['auth','checkRole:guru'])->group(function(){
@@ -127,6 +148,8 @@ route::post('ganti-password/update',[PasswordController::class,'update'])->name(
 route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 route::get('/pengumuman/json',[PengumumanController::class,'json']);
 route::get('/pengumuman/{slug}/show',[PengumumanController::class,'show'])->name('pengumuman.show');
+
+route::post('cetak-raport/{id}',[ExportController::class,'cetakRapor'])->name('cetak-raport');
 
 
 

@@ -38,6 +38,26 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="semester_id">Semester</label>
+                            <select name="semester_id" class="form-control @error('semester_id') is-invalid @enderror ">Pilih Semester
+                                <option class="form-control" selected disabled>Pilih Jurusan</option>
+                                @foreach ($semester as $item)
+                                <option class="form-control" value="{{ $item->id }}">{{ $item->nama_semester }}</option>
+                                @endforeach
+                            </select>
+
+                            @error('semester_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Status</label>
+                            <select name="status" class="form-control @error('status') is-invalid @enderror ">
+                                <option class="form-control" selected disabled>Pilih Status</option>
+                                <option class="form-control" value="aktif">Aktif</option>
+                                <option class="form-control" value="tidak aktif">Tidak Aktif</option>
+                        </div>
                         
                         <button class="btn btn-lg btn-primary" type="submit">Submit</button>
                 </form>

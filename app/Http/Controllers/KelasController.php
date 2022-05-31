@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Guru;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 
 use DataTables;
@@ -47,8 +48,9 @@ class KelasController extends Controller
      */
     public function create()
     {
+        $semester = Semester::where('status','aktif')->get();
         $guru = Guru::all();
-        return view('backend.kelas.create',compact ('guru'));
+        return view('backend.kelas.create',compact ('guru','semester'));
     }
 
     /**
@@ -92,9 +94,10 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
+        $semester = Semester::where('status','aktif')->get();
         $kelas = Kelas::findOrFail($id);
         $gurus = Guru::all();
-        return view('backend.kelas.edit',compact('kelas','gurus'));
+        return view('backend.kelas.edit',compact('kelas','gurus','semester'));
     }
 
     /**

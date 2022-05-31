@@ -6,6 +6,7 @@ use App\Models\Jurusan;
 use App\Models\Mapel;
 use App\Models\Siswa;
 use App\Models\User;
+use App\Models\Semester;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -163,7 +164,7 @@ class SiswaController extends Controller
         ->orderBy('semester','asc')
         ->paginate(3);
         $kelas = Siswa::find($id)->kelas;
-
+        $semester = Semester::all();
         // dd($kelas);
         $mapel = Mapel::find($id);
 
@@ -180,7 +181,7 @@ class SiswaController extends Controller
             ->get();
         }
         $siswa = Siswa::findOrFail($id);
-        return view('backend.siswa.show',compact('siswa','siswaa','matapelajaran','kelas'));
+        return view('backend.siswa.show',compact('siswa','siswaa','matapelajaran','kelas','semester'));
     }
 
     /**

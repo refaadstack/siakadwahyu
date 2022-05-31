@@ -37,7 +37,30 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+                        <div class="form-group">
+                            <label for="semester_id">Pilih Semester</label>
+                            <select name="semester_id" class="form-control @error('semester_id') is-invalid @enderror">
+                                <option value="">Pilih Semester</option>
+                                @foreach ($semester as $item)
+                                    <option value="{{ $item->id }}" {{ $item->id == $kelas->semester_id ? 'selected' : '' }}>{{ $item->nama_semester }}</option>
+                                @endforeach
+                            </select>
+                            @error('semester_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                <option value="">Pilih Status</option>
+                                <option value="aktif" {{ $kelas->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="tidak aktif" {{ $kelas->status == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                            </select>
+                            @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <button class="btn btn-lg btn-primary" type="submit">Submit</button>
                 </form>
             </div>

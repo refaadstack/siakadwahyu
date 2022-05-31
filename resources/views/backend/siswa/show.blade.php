@@ -105,18 +105,22 @@
                       </div>
                     {{-- Card Nilai --}}
                     <div class="col-md-8">
-                        <div class="card">
-                                <div class="container">
+                        <div class="card ">
+                                <div class="container mb-2">
                                     <button class="btn btn-primary" id="tambah">Tambah Data Nilai</button>
+                                    <button class="btn btn-success" id="cetak">Cetak rapor</button>
                                     <button class="btn btn-danger" id="tutup">Tutup</button>
                                 <div class="card-header data-nilai">
                                     <h5 class="card-title">Form Tambah Data Nilai</h5>
                                 </div>
+                                <div class="card-header data-rapor">
+                                    <h5>Form Cetak Rapor</h5>
+                                </div>
                                 <!-- /.card-header -->
-                                <div class="card-body">
+                                <div class="card-body data-nilai">
                                     <form action="/siswa/{{ $siswa->id }}/addnilai" method="POST" >
                                         @csrf
-                                        <div class="form-group data-nilai">
+                                        <div class="form-group ">
                                             <label for="">Nama Mata Pelajaran</label>
                                             <select class="form-control" name="mapel_id">
                                                 <option class="form-control" value="" selected disabled>Pilih Mata Pelajaran</option>
@@ -130,6 +134,21 @@
                                             <input type="number" class="form-control" min="0" max="100"  name="nilai" id="nilai" placeholder="Masukkan Nilai">
                                         </div>
                                         <button type="submit" class="btn btn-primary data-nilai">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="card-body data-rapor">
+                                    <form action="{{ route('cetak-raport',$siswa->id) }}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="semester">Semester</label>
+                                            <select class="form-control" name="semester">
+                                                <option class="form-control" value="" disabled selected>Pilih Semester yang ingin Anda cetak!</option>
+                                                @foreach ($semester as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama_semester }} - {{ $item->tahun_ajaran }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-success data-rapor">Cetak Rapor</button>
                                     </form>
                                 </div>
                             </div>
@@ -244,16 +263,27 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('.data-nilai').hide();
+    $('.data-rapor').hide();
     $('#tutup').hide();
     $('#tambah').click(function(){
         $('.data-nilai').show();
         $('#tutup').show();
+        $('#cetak').hide();
     });
     
     $('#tutup').click(function(){
         $('.data-nilai').hide();
+        $('.data-rapor').hide();
         $('#tutup').hide();
+        $('#cetak').show();
+        $('#tambah').show();
     });
+    $('#cetak').click(function(){
+        $('.data-rapor').show();
+        $('#tutup').show();
+        $('#tambah').hide();
+    });
+
 });
 </script>
 @endpush

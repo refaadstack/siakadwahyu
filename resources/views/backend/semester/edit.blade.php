@@ -32,6 +32,17 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                <option value="">Pilih Status</option>
+                                <option value="aktif" {{ $semester->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                <option value="tidak aktif" {{ $semester->status == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                            </select>
+                            @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                         
                         <button class="btn btn-lg btn-primary" type="submit">Submit</button>
                 </form>
