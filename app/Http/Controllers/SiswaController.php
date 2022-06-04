@@ -227,6 +227,11 @@ class SiswaController extends Controller
             'no_telepon_ortu' => 'required',
         ]);
 
+
+        $filename = md5($request->foto_siswa->getClientOriginalName() . time()) . '.' . $request->foto_siswa->getClientOriginalExtension();
+
+        $path = $request->foto_siswa->storeAs('public/foto_siswa', $filename);
+
         $siswa = Siswa::findOrFail($request->id);
         $siswa->nama = $request->nama;
         $siswa->nisn = $request->nisn;
@@ -242,6 +247,7 @@ class SiswaController extends Controller
         $siswa->no_telepon_siswa = $request->no_telepon_siswa;
         $siswa->nama_ayah = $request->nama_ayah;
         $siswa->nama_ibu = $request->nama_ibu;
+        $siswa->foto_siswa = $path;
         $siswa->pekerjaan_ayah = $request->pekerjaan_ayah;
         $siswa->pekerjaan_ibu = $request->pekerjaan_ibu;
         $siswa->alamat_ortu = $request->alamat_ortu;

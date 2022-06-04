@@ -91,6 +91,7 @@ class JurusanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $jurusan = Jurusan::find($id);
         $request->validate([
             'nama_jurusan' => 'required',
         ]);

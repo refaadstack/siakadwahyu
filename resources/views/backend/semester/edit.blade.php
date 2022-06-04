@@ -26,7 +26,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="guru_id">Pilih Guru</label>
+                            <label for="guru_id">Tahun Ajaran</label>
                             <input type="text" name="tahun_ajaran" class="form-control @error('tahun_ajaran') is-invalid @enderror" placeholder="Tahun Ajaran" value="{{ $semester->tahun_ajaran }}">
                             @error('guru_id')
                                 <div class="alert alert-danger">{{ $message }}</div>
