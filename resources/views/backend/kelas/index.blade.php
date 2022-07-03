@@ -30,20 +30,19 @@
                 <div class="card-body p-0">   
                     <div class="table-responsive">
                         <a href="{{ route('kelas.create') }}" class="btn btn-sm btn-primary mb-2">+tambah data</a>
-                        <table id="kelas-table" class="table table-striped table-bordered bg-white" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>no</th>
-                                    <th>Nama Kelas</th>
-                                    <th>Wali Kelas</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                            
-                        </table>
+                        <form action="/kelas/filterTahun">
+                            <div class="form-group">
+                                <label for="tahun">Tahun</label>
+                                <select class="form-control" name="tahun" id="tahun">
+                                    <option value="">Pilih Tahun</option>
+                                    @foreach($ta as $t)
+                                        <option value="{{ $t->tahun_ajaran }}">Semester {{ $t->nama_semester }} - {{ $t->tahun_ajaran }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary mt-2" id="btn-filter">Filter</button>
+                            </div>
+                        </form>
+
                     </div>
                     
                 </div>
@@ -51,54 +50,4 @@
         </div>
       </div>
   </div>
-
-@push('scripts')
-<script src="{{ asset('stisla/assets/js/page/modules-sweetalert.js') }}"></script>
-
-<script>
-    $(function() {
-        $('#kelas-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: 'kelas/json',
-            columns: [
-                { data:'DT_RowIndex', name:'DT_RowIndex', width:'5%'},
-                { data: 'nama_kelas', name: 'nama_kelas' },
-                { data: 'guru.nama', name:'guru.nama'},
-                { data: 'action', name: 'action', orderable: false, searchable: false}
-            ]
-        });
-    });
-     
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#kelas-table').on('click', '.delete', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            var nama = $(this).data('nama');
-            swal({
-                title: "APAKAH KAMU YAKIN?",
-                text: "Kamu akan menghapus data Kelas "+nama+"????",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    window.location = "/kelas/"+id+"/delete";
-                    swal("Poof! Data berhasil dihapus!", {
-                    icon: "success",
-                    });
-                } else {
-                    swal("Data ga jadi dihapus!");
-                }
-                });
-            });
-        }); 
-
-
-</script>
-
-@endpush
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Kelas;
 use App\Models\Guru;
 use App\Models\Semester;
 use Illuminate\Http\Request;
+use DB;
 
 use DataTables;
 
@@ -17,28 +18,43 @@ class KelasController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function json(){
+    // public function json(){
 
         
-        $kelas = Kelas::with('guru')->get();
-        // dd($kelas);
-        return DataTables::of($kelas)
-        ->addIndexColumn()
-        ->addColumn('action',function($item){
-            return '
-            <a href="'. route('kelas.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
-            <a href="'. route('kelas-siswa.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
-            <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_kelas.'" >Delete</a>
-            ';
-        })
-        ->rawColumns(['action'])
-        ->make(true);
+    //     $kelas = Kelas::with('guru')->with('semester')->get();
+    //     // dd($kelas);
+    //     return DataTables::of($kelas)
+    //     ->addIndexColumn()
+    //     ->addColumn('action',function($item){
+    //         return '
+    //         <a href="'. route('kelas.edit',$item->id) .'" class="btn btn-sm btn-warning">Edit</a>
+    //         <a href="'. route('kelas-siswa.show',$item->id) .'" class="btn btn-sm btn-success">Show</a>
+    //         <a href="'.'#'.'" class="btn btn-sm btn-danger delete" id="swal-6" data-id="'.$item->id.'" data-nama="'.$item->nama_kelas.'" >Delete</a>
+    //         ';
+    //     })
+    //     ->rawColumns(['action'])
+    //     ->make(true);
     
+    // }
+
+    public function filterTahun(Request $request){
+        $tahun = request()->tahun;
+        $semester = request()->semester;
+
+        $kelas = DB::table('kelas')
+        ->join('gurus','kelas.guru_id','=','gurus.id')
+        ->join('semesters','kelas.semester_id','=','semesters.id')
+        ->select('kelas.*','gurus.nama','semesters.nama_semester as semester','semesters.tahun_ajaran as tahun')
+        ->where('semesters.tahun_ajaran',$tahun)
+        ->get();
+
+        return view ('backend.kelas.filter-tahun',compact('kelas'));
     }
 
     public function index()
     {
-        return view('backend.kelas.index');
+        $ta = Semester::all();
+        return view('backend.kelas.index')->with('ta',$ta);
     }
 
     /**

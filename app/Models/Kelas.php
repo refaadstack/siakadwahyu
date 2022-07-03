@@ -17,9 +17,17 @@ class Kelas extends Model
         return $this->belongsTo(Guru::class);
     }
 
+    public function semester(){
+        return $this->belongsTo(Semester::class);
+    }
+
     public function siswa()
     {
         return $this->belongsToMany(Siswa::class)->withPivot('kelas_id','siswa_id')->withTimestamps();
+    }
+    public function scopeSearch($query, $name)
+    {
+        return $query->where('name', 'LIKE', "%{$name}%");
     }
     
 }

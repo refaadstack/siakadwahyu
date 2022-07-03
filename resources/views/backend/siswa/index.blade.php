@@ -47,8 +47,6 @@
                                     <th>Agama</th>
                                     <th>No Telepon</th>
                                     <th>Aksi</th>
-                                    <th></th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>

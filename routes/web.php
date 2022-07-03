@@ -60,7 +60,7 @@ route::group(['middleware'=>['auth','checkRole:admin']],function(){
     route::post('guru/store-mapel', [GuruController::class, 'storeMapel'])->name('guru.store-mapel');
 
     route::get('kelas',[KelasController::class, 'index'])->name('kelas.index');
-    route::get('kelas/json',[KelasController::class,'json']);
+    route::get('kelas/filterTahun',[KelasController::class,'filterTahun']);
     route::get('kelas/create',[KelasController::class,'create'])->name('kelas.create');
     route::post('kelas/store',[KelasController::class,'store'])->name('kelas.store');
     route::get('kelas/{id}/edit',[KelasController::class,'edit'])->name('kelas.edit');
