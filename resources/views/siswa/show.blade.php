@@ -106,6 +106,23 @@
                     {{-- Card Nilai --}}
                     <div class="col-md-8">
                                 <div class="card">
+                                    <div class="card-body data-rapor">
+                                        <form action="{{ route('cetak-raport',$siswa->id) }}" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="semester">Semester</label>
+                                                <select class="form-control" name="semester">
+                                                    <option class="form-control" value="" disabled selected>Pilih Semester yang ingin Anda cetak!</option>
+                                                    @foreach ($semester as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->nama_semester }} - {{ $item->tahun_ajaran }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-success data-rapor">Cetak Rapor</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card">
                                     <div class="card-header bg-primary text-white">
                                             Nilai Mata Pelajaran
                                         </div>

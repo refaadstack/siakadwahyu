@@ -38,9 +38,10 @@ class ExportController extends Controller
                     ->select('k.*', 'g.nama')
                     ->where('s.id', $id)
                     ->first();
-                // dd($kelas);
+                // dd($rapor);
+                $semester = Semester::find($request->semester)->nama_semester;
             $tahun_ajaran = Semester::find($request->semester)->tahun_ajaran;
-            $pdf = PDF::loadView('backend.rapor.cetak', compact('siswa', 'rapor','tahun_ajaran','kelas'));
+            $pdf = PDF::loadView('backend.rapor.cetak', compact('siswa', 'rapor','tahun_ajaran','kelas','semester'));
             return $pdf->stream();
     }
 }

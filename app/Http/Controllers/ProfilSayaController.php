@@ -42,10 +42,11 @@ class ProfilSayaController extends Controller
         ->select('k.nama_kelas as nama_kelas',
                 'g.nama as nama_guru')
         ->where('s.id',$id)->get();
+        $semester = Semester::all();
 
         $matapelajaran = Mapel::all()->where('status','Aktif');
         // dd($kelas);
-        return view('siswa.show',compact('siswa','kelas','matapelajaran','siswaa'));
+        return view('siswa.show',compact('siswa','kelas','matapelajaran','siswaa','semester'));
     }
     public function profilGuru(){
         $guru = Auth::user()->guru;

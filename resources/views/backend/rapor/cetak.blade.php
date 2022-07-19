@@ -40,7 +40,7 @@
                 <td>{{ $siswa->alamat }}</td>
                 <td>Semester </td>
                 <td>:</td>
-                <td>4</td>
+                <td>{{ $semester }}</td>
             </tr>
             <tr>
                 <td>Nama Peserta Didik </td>
