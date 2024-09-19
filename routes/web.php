@@ -26,6 +26,11 @@ use App\Http\Controllers\JamController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/artisan', function(){
+    Artisan::call('migrate');
+    Artisan::call('storage:link');
+    Artisan::call('db:seed');
+});
 
 Route::get('/', function () {
     return view('auth.login');
