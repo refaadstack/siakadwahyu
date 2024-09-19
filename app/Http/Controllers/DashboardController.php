@@ -8,7 +8,7 @@ use App\Models\Guru;
 use App\Models\Mapel;
 use App\Models\Kelas;
 use App\Models\Siswa;
-use App\models\Pengumuman;
+use App\Models\Pengumuman;
 
 class DashboardController extends Controller
 {
