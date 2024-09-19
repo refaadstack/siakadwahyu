@@ -46,9 +46,9 @@
                                 <option class="form-control" value="{{ $item->id }}">{{ $item->nama_semester }}</option>
                                 @endforeach
                             </select>
-
+                            
                             @error('semester_id')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -57,10 +57,10 @@
                                 <option class="form-control" selected disabled>Pilih Status</option>
                                 <option class="form-control" value="aktif">Aktif</option>
                                 <option class="form-control" value="tidak aktif">Tidak Aktif</option>
+                            </select>
                         </div>
-                        
-                        <button class="btn btn-lg btn-primary" type="submit">Submit</button>
-                </form>
+                        <button class="btn btn-primary" type="submit">Submit</button>  
+                    </form>
             </div>
         </div>
     </div>
