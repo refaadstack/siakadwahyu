@@ -26,7 +26,7 @@ use App\Http\Controllers\JamController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/artisan', function(){
+Route::get('/artisancall', function(){
     Artisan::call('migrate');
     Artisan::call('storage:link');
     Artisan::call('db:seed');
